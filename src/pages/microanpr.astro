@@ -1,0 +1,99 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MicroAnpr from '../components/MicroAnpr.astro'
+
+---
+
+<Layout title="MicroANPR: Automatic Number Plate Recognition (ANPR) as a service">
+	<main>
+		<MicroAnpr/>
+	</main>
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+		padding: 1rem;
+	}
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      function setButtonInactive(btn: any, activeButton: any) {
+        if (btn !== activeButton) {
+          btn.classList.remove(
+            "active",
+            "bg-neutral-100",
+            "hover:border-transparent",
+            "dark:bg-white/[.05]",
+          );
+
+          const tabId = btn.getAttribute("data-target");
+          if (tabId) {
+            const contentElement = document.querySelector(tabId);
+            if (contentElement) {
+              contentElement.classList.add("hidden");
+            }
+          }
+
+          changeHeadingStyle(
+            btn,
+            ["text-neutral-800", "dark:text-neutral-200"],
+            ["text-[#fa5a15]", "dark:text-[#fb713b]"],
+          );
+        }
+      }
+
+      function activateButton(button: any) {
+        button.classList.add(
+          "active",
+          "bg-neutral-100",
+          ",hover:border-transparent",
+          "dark:bg-white/[.05]",
+        );
+
+        const tabId = button.getAttribute("data-target");
+        if (tabId) {
+          const contentElementToShow = document.querySelector(tabId);
+          if (contentElementToShow) {
+            contentElementToShow.classList.remove("hidden");
+          }
+        }
+
+        changeHeadingStyle(
+          button,
+          ["text-[#fa5a15]", "dark:text-[#fb713b]"],
+          ["text-neutral-800", "dark:text-neutral-200"],
+        );
+      }
+
+      function changeHeadingStyle(
+        button: any,
+        addClasses: any,
+        removeClasses: any,
+      ) {
+        let heading = button.querySelector("span");
+        if (heading) {
+          heading.classList.remove(...removeClasses);
+          heading.classList.add(...addClasses);
+        }
+      }
+
+      const tabButtons = document.querySelectorAll("[data-target]");
+
+      if (tabButtons.length > 0) {
+        changeHeadingStyle(
+          tabButtons[0],
+          ["text-[#fa5a15]", "dark:text-[#fb713b]"],
+          [],
+        );
+      }
+
+      tabButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          tabButtons.forEach((btn) => setButtonInactive(btn, button));
+          activateButton(button);
+        });
+      });
+    });
+  </script>

@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import Moto from '../components/Moto.astro';
+import ClientsSection from '../components/ClientsSection.astro'
+import HeroSection from '../components/Hero.astro'
+import Features from '../components/Features.astro'
+---
+
+	<Layout title="MicroANPR: Automatic Number Plate Recognition (ANPR) as a service">
+
+	<main>
+		<Moto/>
+		<section>
+		<ClientsSection/>
+		</section>
+		<HeroSection/>
+		<Features/>
+	</main>
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+		padding: 1rem;
+		max-width: calc(100% - 2rem);
+		color: white;
+		line-height: 1.6;
+	}
+
+	section {
+		margin: auto;
+		width: 800px;
+		max-width: calc(100% - 2rem);
+	}
+</style>

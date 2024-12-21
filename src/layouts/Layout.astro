@@ -1,0 +1,55 @@
+---
+import Navbar from '../components/Navbar.astro';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<script is:inline>
+			// Script to handle dark mode. It will check if the theme is stored in localStorage or if dark theme is preferred by system settings
+			if (
+			  localStorage.getItem("hs_theme") === "dark" ||
+			  (!("hs_theme" in localStorage) &&
+				window.matchMedia("(prefers-color-scheme: dark)").matches)
+			) {
+			  document.documentElement.classList.add("dark");
+			} else {
+			  document.documentElement.classList.remove("dark");
+			}
+		  </script>
+		<meta charset="UTF-8" />
+
+		<meta name="description" content="MicroALPR description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body
+	class="bg-neutral-200 selection:bg-yellow-400 selection:text-neutral-700 dark:bg-neutral-800"
+
+	>
+
+		<Navbar />
+		<slot />
+	</body>
+</html>
+<style is:global>
+	code {
+		font-family:
+			Menlo,
+			Monaco,
+			Lucida Console,
+			Liberation Mono,
+			DejaVu Sans Mono,
+			Bitstream Vera Sans Mono,
+			Courier New,
+			monospace;
+	}
+</style>

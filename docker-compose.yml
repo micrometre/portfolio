@@ -1,0 +1,6 @@
+services:
+  microanpr-astro:
+    build: .
+    container_name: microanpr-astro
+    ports:
+      - 80:80
