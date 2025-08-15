@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Navigation from '../components/Navigation'
+import Hero from '../components/Hero'
+import Skills from '../components/Skills'
+import Projects from '../components/Projects'
+import ArticlesPreview from '../components/ArticlesPreview'
+import Contact from '../components/Contact'
+import { getCollection } from 'astro:content'
+
+const articles = await getCollection('articles')
+const sortedArticles = articles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+---
+
+<Layout title="Henok Wehibe - Full-Stack Developer">
+	<Navigation client:load />
+	<main>
+		<Hero client:load />
+		<Skills client:load />
+		<ArticlesPreview articles={sortedArticles} client:load />
+		<Contact client:load />
+	</main>
+</Layout>

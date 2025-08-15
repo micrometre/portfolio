@@ -1,0 +1,65 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Navigation from '../components/Navigation'
+---
+
+<Layout title="About - Henok Wehibe">
+  <Navigation client:load />
+  
+  <main class="pt-20">
+    <div class="container mx-auto px-6 py-20">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-16">
+          <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            About Me
+          </h1>
+          <p class="text-gray-400 text-lg">
+            Get to know more about my journey, experience, and passion for technology
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="space-y-6">
+            <h2 class="text-3xl font-bold text-white mb-4">Hello, I'm Henok Wehibe</h2>
+            <p class="text-gray-400 leading-relaxed">
+              I'm a passionate Full-Stack Developer currently based in London, United Kingdom. 
+              With expertise spanning frontend and backend technologies, I love creating digital 
+              solutions that make a real impact.
+            </p>
+            <p class="text-gray-400 leading-relaxed">
+              My journey in software development has led me to work with modern technologies 
+              like React, Node.js, Python, and various cloud platforms. I believe in writing 
+              clean, maintainable code and staying up-to-date with the latest industry trends.
+            </p>
+            <p class="text-gray-400 leading-relaxed">
+              When I'm not coding, you can find me exploring new technologies, contributing to 
+              open-source projects, or learning about emerging trends in cloud computing and AI.
+            </p>
+          </div>
+
+          <div class="bg-gradient-to-br from-blue-600/20 to-purple-600/20 rounded-xl p-8 border border-gray-700">
+            <h3 class="text-2xl font-bold text-white mb-6">Quick Facts</h3>
+            <ul class="space-y-4">
+              <li class="flex items-center text-gray-300">
+                <span class="w-2 h-2 bg-blue-400 rounded-full mr-4"></span>
+                Based in London, UK
+              </li>
+              <li class="flex items-center text-gray-300">
+                <span class="w-2 h-2 bg-purple-400 rounded-full mr-4"></span>
+                Full-Stack Developer
+              </li>
+              <li class="flex items-center text-gray-300">
+                <span class="w-2 h-2 bg-blue-400 rounded-full mr-4"></span>
+                Cloud Computing Enthusiast
+              </li>
+              <li class="flex items-center text-gray-300">
+                <span class="w-2 h-2 bg-purple-400 rounded-full mr-4"></span>
+                Open Source Contributor
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
