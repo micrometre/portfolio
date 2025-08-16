@@ -6,7 +6,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "analyze": "astro build --analyze",
+    "analyze:bundle": "astro build && npx vite-bundle-analyzer dist",
+    "build:stats": "astro build --analyze --verbose"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.4",
@@ -19,5 +22,8 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "tailwindcss": "^4.1.12"
+  },
+  "devDependencies": {
+    "vite-bundle-analyzer": "^0.10.0"
   }
 }

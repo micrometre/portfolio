@@ -1,4 +1,14 @@
 import { motion } from 'framer-motion'
+import { 
+  slideUp, 
+  fadeInUp, 
+  hoverLift, 
+  hoverScale,
+  staggerContainer,
+  transitions,
+  createDelayedAnimation,
+  createViewportAnimation 
+} from '../utils/motion'
 
 const projects = [
   {
@@ -22,10 +32,11 @@ const Projects = () => {
     <section id="projects" className="py-20">
       <div className="container mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          variants={slideUp}
+          initial="initial"
+          whileInView="animate"
+          transition={transitions.slow}
+          {...createViewportAnimation()}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
@@ -36,15 +47,18 @@ const Projects = () => {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <motion.div 
+          className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto"
+          variants={staggerContainer}
+          initial="initial"
+          whileInView="animate"
+          {...createViewportAnimation()}
+        >
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -10 }}
+              variants={slideUp}
+              {...hoverLift}
               className="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-700 hover:border-blue-500/50"
             >
               {/* Project Image */}
@@ -83,8 +97,7 @@ const Projects = () => {
                 {/* Link */}
                 <motion.a
                   href={project.link}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  {...hoverScale}
                   className="inline-flex items-center text-blue-400 hover:text-blue-300 font-semibold transition-colors duration-200"
                 >
                   View Project
@@ -95,14 +108,15 @@ const Projects = () => {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* View All Projects Link */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
+          variants={fadeInUp}
+          initial="initial"
+          whileInView="animate"
+          transition={createDelayedAnimation(0.4).transition}
+          {...createViewportAnimation()}
           className="text-center mt-12"
         >
           <a 

@@ -1,5 +1,13 @@
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
+import { 
+  navSlideDown, 
+  fadeInDown, 
+  hoverScale,
+  mobileMenuVariants,
+  transitions,
+  createDelayedAnimation 
+} from '../utils/motion'
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -23,9 +31,10 @@ const Navigation = () => {
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+      variants={navSlideDown}
+      initial="initial"
+      animate="animate"
+      transition={transitions.default}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
           ? 'bg-gray-900/95 backdrop-blur-md border-b border-gray-800' 
@@ -37,7 +46,7 @@ const Navigation = () => {
           {/* Logo */}
           <motion.a
             href="/"
-            whileHover={{ scale: 1.05 }}
+            {...hoverScale}
             className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
           >
             Henok.dev
@@ -49,9 +58,10 @@ const Navigation = () => {
               <motion.a
                 key={item.name}
                 href={item.href}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                variants={fadeInDown}
+                initial="initial"
+                animate="animate"
+                transition={createDelayedAnimation(index * 0.1).transition}
                 className="text-gray-300 hover:text-white font-medium transition-colors duration-200 relative group"
               >
                 {item.name}
@@ -61,10 +71,12 @@ const Navigation = () => {
             
             <motion.a
               href="/resume.pdf"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              whileHover={{ scale: 1.05 }}
+              variants={fadeInDown}
+              initial="initial"
+              animate="animate"
+              transition={createDelayedAnimation(0.5).transition}
+              whileHover={hoverScale.whileHover}
+              whileTap={hoverScale.whileTap}
               className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
             >
               Resume
@@ -90,8 +102,9 @@ const Navigation = () => {
 
         {/* Mobile Menu */}
         <motion.div
-          initial={false}
-          animate={{ height: isMobileMenuOpen ? 'auto' : 0 }}
+          variants={mobileMenuVariants}
+          initial="initial"
+          animate={isMobileMenuOpen ? "animate" : "initial"}
           transition={{ duration: 0.3 }}
           className="md:hidden overflow-hidden"
         >

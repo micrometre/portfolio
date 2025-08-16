@@ -9,6 +9,20 @@ import Footer from '../components/Footer'
   <Navigation client:load />
   
   <main class="pt-20">
+    <ContactSection client:visible />
+  </main>
+  
+  <Footer client:idle />
+</Layout>t from '../layouts/Layout.astro'
+import Navigation from '../components/Navigation'
+import ContactSection from '../components/Contact'
+import Footer from '../components/Footer'
+---
+
+<Layout title="Contact - Henok Wehibe">
+  <Navigation client:load />
+  
+  <main class="pt-20">
     <ContactSection client:load />
   </main>
   

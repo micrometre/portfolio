@@ -1,12 +1,14 @@
 import { motion } from 'framer-motion'
+import { fadeInUp, hoverScale, createDelayedAnimation, createViewportAnimation } from '../utils/motion'
 
 const Footer = () => {
   return (
     <motion.footer
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.2 }}
-      viewport={{ once: true }}
+      variants={fadeInUp}
+      initial="initial"
+      whileInView="animate"
+      transition={createDelayedAnimation(0.2).transition}
+      {...createViewportAnimation()}
       className="py-12 mt-16 bg-gray-800/50 border-t border-gray-700"
     >
       <div className="container mx-auto px-6">
@@ -22,8 +24,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Visit my GitHub profile"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
+              {...hoverScale}
               className="text-gray-400 hover:text-blue-400 transition-colors duration-200"
             >
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -34,8 +35,7 @@ const Footer = () => {
             <motion.a
               href="mailto:contact@henok.dev"
               aria-label="Send me an email"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
+              {...hoverScale}
               className="text-gray-400 hover:text-blue-400 transition-colors duration-200"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -48,8 +48,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Connect with me on LinkedIn"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
+              {...hoverScale}
               className="text-gray-400 hover:text-blue-400 transition-colors duration-200"
             >
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">

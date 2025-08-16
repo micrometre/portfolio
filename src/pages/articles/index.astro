@@ -3,7 +3,6 @@ import Layout from '../../layouts/Layout.astro'
 import Navigation from '../../components/Navigation'
 import Footer from '../../components/Footer'
 import { getCollection } from 'astro:content'
-import { motion } from 'framer-motion'
 
 const articles = await getCollection('articles')
 const sortedArticles = articles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -92,5 +91,5 @@ function formatDate(date: Date) {
     </div>
   </main>
   
-  <Footer client:load />
+  <Footer client:idle />
 </Layout>

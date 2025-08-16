@@ -15,10 +15,10 @@ const sortedArticles = articles.sort((a, b) => b.data.pubDate.valueOf() - a.data
 <Layout title="Henok Wehibe - Full-Stack Developer">
 	<Navigation client:load />
 	<main>
-		<Hero client:load />
-		<Skills client:load />
-		<ArticlesPreview articles={sortedArticles} client:load />
-		<Contact client:load />
+		<Hero client:visible />
+		<Skills client:visible />
+		<ArticlesPreview articles={sortedArticles} client:idle />
+		<Contact client:visible />
 	</main>
-	<Footer client:load />
+	<Footer client:idle />
 </Layout>

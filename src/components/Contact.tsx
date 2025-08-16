@@ -1,14 +1,23 @@
 import { motion } from 'framer-motion'
+import { 
+  slideUp, 
+  fadeInLeft, 
+  fadeInRight, 
+  hoverScale,
+  transitions,
+  createViewportAnimation 
+} from '../utils/motion'
 
 const Contact = () => {
   return (
     <section id="contact" className="py-20 bg-gray-800/50">
       <div className="container mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          variants={slideUp}
+          initial="initial"
+          whileInView="animate"
+          transition={transitions.slow}
+          {...createViewportAnimation()}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
@@ -23,10 +32,11 @@ const Contact = () => {
           <div className="grid md:grid-cols-2 gap-12">
             {/* Contact Info */}
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
+              variants={fadeInLeft}
+              initial="initial"
+              whileInView="animate"
+              transition={transitions.default}
+              {...createViewportAnimation()}
               className="space-y-8"
             >
               <div>
@@ -76,10 +86,11 @@ const Contact = () => {
 
             {/* Contact Form */}
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
+              variants={fadeInRight}
+              initial="initial"
+              whileInView="animate"
+              transition={transitions.default}
+              {...createViewportAnimation()}
               className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-8 border border-gray-700"
             >
               <form className="space-y-6">
@@ -124,8 +135,7 @@ const Contact = () => {
 
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  {...hoverScale}
                   className="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
                 >
                   Send Message
