@@ -21,6 +21,7 @@ const Footer = () => {
               href="https://github.com/micrometre"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Visit my GitHub profile"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               className="text-gray-400 hover:text-blue-400 transition-colors duration-200"
@@ -32,6 +33,7 @@ const Footer = () => {
             
             <motion.a
               href="mailto:contact@henok.dev"
+              aria-label="Send me an email"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               className="text-gray-400 hover:text-blue-400 transition-colors duration-200"
@@ -45,6 +47,7 @@ const Footer = () => {
               href="https://linkedin.com/in/henokwehibe"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Connect with me on LinkedIn"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               className="text-gray-400 hover:text-blue-400 transition-colors duration-200"

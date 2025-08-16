@@ -75,6 +75,7 @@ const Navigation = () => {
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
             className="md:hidden p-2 text-gray-300 hover:text-white"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
