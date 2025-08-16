@@ -5,17 +5,15 @@ import {
   hoverLift, 
   staggerContainerSlow,
   transitions,
-  createDelayedAnimation,
   createViewportAnimation,
-  createStaggeredAnimation 
 } from '../utils/motion'
 
 const skillCategories = [
   {
     title: 'Frontend',
-    description: 'JavaScript, React & Next.js',
+    description: 'JavaScript & React ',
     icon: '🎨',
-    skills: ['JavaScript', 'TypeScript', 'React', 'Astro', 'Tailwind CSS', 'Bootstrap',  'Next.js', 'Framer Motion']
+    skills: ['JavaScript', 'TypeScript', 'React', 'Next.js', 'Astro', 'Tailwind CSS', 'Bootstrap',  'Framer Motion']
   },
   {
     title: 'Backend', 
@@ -27,7 +25,7 @@ const skillCategories = [
     title: 'Cloud Platforms',
     description: 'AWS, GCP & Azure',
     icon: '☁️',
-    skills: ['AWS', 'Google Cloud Platform', 'Microsoft Azure', 'Docker', 'Kubernetes', 'Ansible']
+    skills: ['AWS', 'Google Cloud Platform', 'Microsoft Azure', 'Ansible', 'Docker', 'Kubernetes']
   },
   {
     title: 'Computer Vision',

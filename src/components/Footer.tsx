@@ -2,6 +2,8 @@ import { motion } from 'framer-motion'
 import { fadeInUp, hoverScale, createDelayedAnimation, createViewportAnimation } from '../utils/motion'
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <motion.footer
       variants={fadeInUp}
@@ -14,7 +16,7 @@ const Footer = () => {
       <div className="container mx-auto px-6">
         <div className="text-center">
           <p className="text-gray-400 mb-4">
-            © 2025 Henok Wehibe. Built with Astro, React, and Framer Motion.
+            © {currentYear} Henok Wehibe. Built with Astro, React, and Framer Motion.
           </p>
           
           {/* Social Links */}

@@ -23,9 +23,6 @@ const Contact = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
             Get In Touch
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Let's connect and discuss opportunities or collaborations
-          </p>
         </motion.div>
 
         <div className="max-w-4xl mx-auto">
@@ -43,7 +40,7 @@ const Contact = () => {
                 <h3 className="text-2xl font-bold mb-6 text-white">Let's Start a Conversation</h3>
                 <p className="text-gray-400 leading-relaxed">
                   I'm always interested in new opportunities, challenging projects, and meaningful collaborations. 
-                  Whether you're looking for a developer or just want to connect, feel free to reach out.
+                   feel free to reach out.
                 </p>
               </div>
 
