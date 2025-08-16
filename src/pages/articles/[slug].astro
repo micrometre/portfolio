@@ -32,47 +32,82 @@ function formatDate(date: Date) {
   <main class="pt-20">
     <article class="container mx-auto px-6 py-20 max-w-4xl">
       {/* Article Header */}
-      <header class="mb-12 text-center">
+      <header class="mb-16 text-center">
         {article.data.featured && (
-          <span class="inline-block px-4 py-2 bg-gradient-to-r from-blue-600/20 to-purple-600/20 text-blue-300 font-semibold rounded-full border border-blue-500/30 mb-6">
-            Featured Article
-          </span>
+          <div class="mb-8">
+            <span class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600/20 to-purple-600/20 text-blue-300 font-semibold rounded-full border border-blue-500/30 backdrop-blur-sm">
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+              </svg>
+              Featured Article
+            </span>
+          </div>
         )}
         
-        <h1 class="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">
-          {article.data.title}
+        <h1 class="text-4xl md:text-6xl font-bold mb-8 text-white leading-tight">
+          <span class="bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+            {article.data.title}
+          </span>
         </h1>
         
-        <p class="text-xl text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto">
-          {article.data.description}
-        </p>
+        <div class="max-w-3xl mx-auto mb-10">
+          <p class="text-xl md:text-2xl text-gray-300 leading-relaxed font-light">
+            {article.data.description}
+          </p>
+        </div>
         
-        <div class="flex flex-wrap items-center justify-center gap-4 text-gray-500 mb-8">
-          <time datetime={article.data.pubDate.toISOString()}>
-            {formatDate(article.data.pubDate)}
-          </time>
+        <div class="flex flex-wrap items-center justify-center gap-6 text-gray-400 mb-10 text-sm uppercase tracking-wider font-medium">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <time datetime={article.data.pubDate.toISOString()}>
+              {formatDate(article.data.pubDate)}
+            </time>
+          </div>
           
-          <span>•</span>
+          <span class="text-gray-600">•</span>
           
-          <span>by {article.data.author}</span>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            <span>Henok Wehibe</span>
+          </div>
           
           {article.data.updatedDate && (
             <>
-              <span>•</span>
-              <span>Updated {formatDate(article.data.updatedDate)}</span>
+              <span class="text-gray-600">•</span>
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                <span>Updated {formatDate(article.data.updatedDate)}</span>
+              </div>
             </>
           )}
         </div>
         
         {article.data.tags && (
-          <div class="flex flex-wrap gap-2 justify-center">
+          <div class="flex flex-wrap gap-3 justify-center">
             {article.data.tags.map((tag) => (
-              <span class="px-3 py-1 bg-purple-600/20 text-purple-300 rounded-full text-sm border border-purple-500/30">
-                {tag}
+              <span class="px-4 py-2 bg-gradient-to-r from-purple-600/20 to-blue-600/20 text-purple-300 rounded-full text-sm border border-purple-500/30 backdrop-blur-sm font-medium hover:from-purple-600/30 hover:to-blue-600/30 transition-all duration-300 cursor-default">
+                #{tag}
               </span>
             ))}
           </div>
         )}
+        
+        {/* Reading Time Estimate */}
+        <div class="mt-8 flex items-center justify-center gap-2 text-gray-500 text-sm">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>~8 min read</span>
+        </div>
+        
+        {/* Divider */}
+        <div class="mt-12 w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto"></div>
       </header>
 
       {/* Article Content */}
@@ -116,101 +151,365 @@ function formatDate(date: Date) {
 
 <style>
   .article-content {
-    color: rgb(209 213 219);
-    line-height: 1.75;
+    color: rgb(229 231 235);
+    line-height: 1.8;
+    font-size: 1.125rem;
+    font-weight: 400;
   }
   
-  .article-content h1, .article-content h2, .article-content h3, .article-content h4 {
+  /* Typography Hierarchy */
+  .article-content h1, .article-content h2, .article-content h3, .article-content h4, .article-content h5, .article-content h6 {
     color: white;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    margin-top: 2rem;
+    font-weight: 700;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+    letter-spacing: -0.025em;
   }
   
-  .article-content h1 { font-size: 1.875rem; }
-  .article-content h2 { font-size: 1.5rem; }
-  .article-content h3 { font-size: 1.25rem; }
-  .article-content h4 { font-size: 1.125rem; }
+  .article-content h1:first-child,
+  .article-content h2:first-child,
+  .article-content h3:first-child {
+    margin-top: 0;
+  }
   
+  .article-content h1 { 
+    font-size: 2.25rem;
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-bottom: 3px solid rgba(96, 165, 250, 0.3);
+    padding-bottom: 1rem;
+  }
+  .article-content h2 { 
+    font-size: 1.875rem; 
+    color: #f3f4f6;
+    position: relative;
+  }
+  .article-content h2::before {
+    content: '';
+    position: absolute;
+    left: -1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 1.5rem;
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    border-radius: 2px;
+  }
+  .article-content h3 { 
+    font-size: 1.5rem;
+    color: #d1d5db;
+  }
+  .article-content h4 { 
+    font-size: 1.25rem;
+    color: #d1d5db;
+  }
+  .article-content h5 { 
+    font-size: 1.125rem;
+    color: #d1d5db;
+  }
+  .article-content h6 { 
+    font-size: 1rem;
+    color: #d1d5db;
+    font-weight: 600;
+  }
+  
+  /* Paragraphs and Text */
   .article-content p {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
+    text-align: justify;
+    hyphens: auto;
   }
   
+  .article-content p:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Lists */
   .article-content ul, .article-content ol {
-    margin-bottom: 1.5rem;
-    margin-left: 1.5rem;
+    margin-bottom: 2rem;
+    padding-left: 2rem;
+  }
+  
+  .article-content ul {
+    list-style: none;
+  }
+  
+  .article-content ul li::before {
+    content: '•';
+    color: #60a5fa;
+    font-weight: bold;
+    font-size: 1.2em;
+    position: absolute;
+    margin-left: -1.5rem;
+  }
+  
+  .article-content ol {
+    list-style: decimal;
+  }
+  
+  .article-content ol li {
+    list-style-type: decimal;
+    color: #60a5fa;
+  }
+  
+  .article-content ol li > * {
+    color: rgb(229 231 235);
   }
   
   .article-content li {
+    margin-bottom: 0.75rem;
+    position: relative;
+    padding-left: 0.5rem;
+  }
+  
+  .article-content li p {
     margin-bottom: 0.5rem;
   }
   
-  .article-content blockquote {
-    border-left: 4px solid rgb(59 130 246);
-    padding-left: 1.5rem;
-    font-style: italic;
-    color: rgb(156 163 175);
-    margin: 1.5rem 0;
+  .article-content li:last-child {
+    margin-bottom: 0;
   }
   
+  /* Nested Lists */
+  .article-content ul ul, .article-content ol ol,
+  .article-content ul ol, .article-content ol ul {
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  /* Blockquotes */
+  .article-content blockquote {
+    border-left: 4px solid #60a5fa;
+    background: rgba(59, 130, 246, 0.05);
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: italic;
+    color: #d1d5db;
+    position: relative;
+  }
+  
+  .article-content blockquote::before {
+    content: '"';
+    font-size: 4rem;
+    color: rgba(96, 165, 250, 0.3);
+    position: absolute;
+    top: -0.5rem;
+    left: 1rem;
+    font-family: Georgia, serif;
+  }
+  
+  .article-content blockquote p {
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .article-content blockquote p:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Code Blocks */
   .article-content pre {
     background-color: rgb(17 24 39);
     border: 1px solid rgb(55 65 81);
-    border-radius: 0.5rem;
-    padding: 1.5rem;
+    border-radius: 0.75rem;
+    padding: 2rem;
     overflow-x: auto;
-    margin-bottom: 1.5rem;
+    margin: 2rem 0;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   }
   
-  .article-content code {
-    background-color: rgb(31 41 55);
-    color: rgb(147 197 253);
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    font-size: 0.875rem;
+  .article-content pre::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2rem;
+    background: rgb(31 41 55);
+    border-radius: 0.75rem 0.75rem 0 0;
+    border-bottom: 1px solid rgb(55 65 81);
+  }
+  
+  .article-content pre::after {
+    content: '';
+    position: absolute;
+    top: 0.75rem;
+    left: 1rem;
+    width: 0.75rem;
+    height: 0.75rem;
+    background: #ef4444;
+    border-radius: 50%;
+    box-shadow: 1.25rem 0 0 #f59e0b, 2.5rem 0 0 #10b981;
   }
   
   .article-content pre code {
     background-color: transparent;
     padding: 0;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #e5e7eb;
+    margin-top: 1.5rem;
+    display: block;
   }
   
+  /* Inline Code */
+  .article-content code {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #93c5fd;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.9em;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    font-weight: 500;
+  }
+  
+  /* Links */
   .article-content a {
-    color: rgb(96 165 250);
-    text-decoration: underline;
-    transition: color 0.2s;
+    color: #60a5fa;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(96, 165, 250, 0.3);
+    transition: all 0.2s ease;
+    font-weight: 500;
   }
   
   .article-content a:hover {
-    color: rgb(147 197 253);
+    color: #93c5fd;
+    border-bottom-color: #93c5fd;
+    background: rgba(96, 165, 250, 0.1);
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    margin: -0.125rem -0.25rem;
   }
   
+  /* Strong and Emphasis */
   .article-content strong {
     color: white;
     font-weight: 600;
   }
   
-  .article-content hr {
-    border-color: rgb(55 65 81);
-    margin: 2rem 0;
+  .article-content em {
+    font-style: italic;
+    color: #d1d5db;
   }
   
+  /* Horizontal Rules */
+  .article-content hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.5), transparent);
+    margin: 3rem 0;
+  }
+  
+  /* Tables */
   .article-content table {
     width: 100%;
     border-collapse: collapse;
     border: 1px solid rgb(55 65 81);
-    margin: 1.5rem 0;
+    margin: 2rem 0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   
   .article-content th, .article-content td {
     border: 1px solid rgb(55 65 81);
-    padding: 1rem;
+    padding: 1.25rem 1rem;
     text-align: left;
   }
   
   .article-content th {
-    background-color: rgb(31 41 55);
+    background: linear-gradient(135deg, rgb(31 41 55), rgb(17 24 39));
     font-weight: 600;
     color: white;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .article-content tr:nth-child(even) {
+    background-color: rgba(31, 41, 55, 0.3);
+  }
+  
+  .article-content tr:hover {
+    background-color: rgba(59, 130, 246, 0.1);
+  }
+  
+  /* Images */
+  .article-content img {
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    margin: 2rem 0;
+  }
+  
+  /* Reading Progress and Flow */
+  .article-content > * + * {
+    margin-top: 0;
+  }
+  
+  /* Section Dividers */
+  .article-content h2 + p,
+  .article-content h3 + p,
+  .article-content h4 + p {
+    margin-top: 0;
+  }
+  
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .article-content {
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    
+    .article-content h1 { font-size: 1.875rem; }
+    .article-content h2 { font-size: 1.5rem; }
+    .article-content h3 { font-size: 1.25rem; }
+    
+    .article-content h2::before {
+      left: -1rem;
+    }
+    
+    .article-content pre {
+      padding: 1.5rem;
+      margin: 1.5rem -1rem;
+      border-radius: 0;
+    }
+    
+    .article-content blockquote {
+      margin: 1.5rem -1rem;
+      border-radius: 0;
+      padding: 1.5rem;
+    }
+  }
+  
+  /* Print Styles */
+  @media print {
+    .article-content {
+      color: black !important;
+      font-size: 12pt;
+      line-height: 1.5;
+    }
+    
+    .article-content h1, .article-content h2, .article-content h3, .article-content h4 {
+      color: black !important;
+      page-break-after: avoid;
+    }
+    
+    .article-content pre {
+      background: #f5f5f5 !important;
+      border: 1px solid #ccc !important;
+    }
+    
+    .article-content code {
+      background: #f5f5f5 !important;
+      color: #333 !important;
+    }
   }
 </style>

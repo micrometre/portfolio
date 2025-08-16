@@ -69,18 +69,6 @@ const Navigation = () => {
               </motion.a>
             ))}
             
-            <motion.a
-              href="/resume.pdf"
-              variants={fadeInDown}
-              initial="initial"
-              animate="animate"
-              transition={createDelayedAnimation(0.5).transition}
-              whileHover={hoverScale.whileHover}
-              whileTap={hoverScale.whileTap}
-              className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
-            >
-              Resume
-            </motion.a>
           </div>
 
           {/* Mobile Menu Button */}
