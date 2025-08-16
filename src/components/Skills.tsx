@@ -3,13 +3,13 @@ import { motion } from 'framer-motion'
 const skillCategories = [
   {
     title: 'Frontend',
-    description: 'HTML, CSS, JavaScript & React',
+    description: 'JavaScript, React & Next.js',
     icon: '🎨',
-    skills: ['JavaScript', 'TypeScript', 'React', 'Astro', 'Tailwind CSS']
+    skills: ['JavaScript', 'TypeScript', 'React', 'Astro', 'Tailwind CSS', 'Bootstrap',  'Next.js', 'Framer Motion']
   },
   {
     title: 'Backend', 
-    description: 'Golang, Node.js & Python/Flask',
+    description: 'Golang, Node.js & Python',
     icon: '⚙️',
     skills: ['Golang', 'Node.js', 'Python', 'Flask', 'Express', 'REST APIs', 'Database Design']
   },
@@ -17,7 +17,7 @@ const skillCategories = [
     title: 'Cloud Platforms',
     description: 'AWS, GCP & Azure',
     icon: '☁️',
-    skills: ['AWS', 'Google Cloud Platform', 'Microsoft Azure', 'Docker', 'CI/CD']
+    skills: ['AWS', 'Google Cloud Platform', 'Microsoft Azure', 'Docker', 'Kubernetes', 'Ansible']
   },
   {
     title: 'Computer Vision',

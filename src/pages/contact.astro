@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro'
 import Navigation from '../components/Navigation'
 import ContactSection from '../components/Contact'
+import Footer from '../components/Footer'
 ---
 
 <Layout title="Contact - Henok Wehibe">
@@ -10,4 +11,6 @@ import ContactSection from '../components/Contact'
   <main class="pt-20">
     <ContactSection client:load />
   </main>
+  
+  <Footer client:load />
 </Layout>

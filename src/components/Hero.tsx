@@ -3,8 +3,19 @@ import { motion } from 'framer-motion'
 const Hero = () => {
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20"></div>
+      {/* Background image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('/assets/code_setup0.webp')`,
+        }}
+      ></div>
+      
+      {/* Dark overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/60"></div>
+      
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/30 to-purple-600/30"></div>
       
       <div className="container mx-auto px-6 text-center relative z-10">
         <motion.div
@@ -37,7 +48,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             <a 
-              href="/resume.pdf"
+              target="_blank" href="/resume.pdf"
               className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
               View Resume
@@ -51,7 +62,7 @@ const Hero = () => {
       
       {/* Animated background elements */}
       <motion.div
-        className="absolute top-1/4 right-1/4 w-32 h-32 bg-blue-500/10 rounded-full blur-xl"
+        className="absolute top-1/4 right-1/4 w-32 h-32 bg-blue-500/20 rounded-full blur-xl"
         animate={{
           y: [0, -20, 0],
           scale: [1, 1.1, 1],
@@ -63,7 +74,7 @@ const Hero = () => {
         }}
       />
       <motion.div
-        className="absolute bottom-1/3 left-1/4 w-24 h-24 bg-purple-500/10 rounded-full blur-xl"
+        className="absolute bottom-1/3 left-1/4 w-24 h-24 bg-purple-500/20 rounded-full blur-xl"
         animate={{
           y: [0, 15, 0],
           scale: [1, 0.9, 1],

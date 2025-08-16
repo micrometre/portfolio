@@ -105,12 +105,6 @@ const Navigation = () => {
                 {item.name}
               </a>
             ))}
-            <a
-              href="/resume.pdf"
-              className="inline-block px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
-            >
-              Resume
-            </a>
           </div>
         </motion.div>
       </div>

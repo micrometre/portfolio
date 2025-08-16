@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro'
 import Navigation from '../../components/Navigation'
+import Footer from '../../components/Footer'
 import { getCollection } from 'astro:content'
 import { motion } from 'framer-motion'
 
@@ -90,4 +91,6 @@ function formatDate(date: Date) {
       </div>
     </div>
   </main>
+  
+  <Footer client:load />
 </Layout>

@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro'
 import Navigation from '../../components/Navigation'
+import Footer from '../../components/Footer'
 import { getCollection, type CollectionEntry } from 'astro:content'
 
 export async function getStaticPaths() {
@@ -109,6 +110,8 @@ function formatDate(date: Date) {
       </footer>
     </article>
   </main>
+  
+  <Footer client:load />
 </Layout>
 
 <style>

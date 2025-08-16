@@ -134,19 +134,6 @@ const Contact = () => {
             </motion.div>
           </div>
         </div>
-
-        {/* Footer */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="text-center mt-16 pt-8 border-t border-gray-700"
-        >
-          <p className="text-gray-400">
-            © 2025 Henok Wehibe. Built with Astro, React, and Framer Motion.
-          </p>
-        </motion.div>
       </div>
     </section>
   )
