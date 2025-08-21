@@ -8,6 +8,7 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://henok.cloud', // Add your domain here
   integrations: [react(), mdx()],
 
   vite: {
