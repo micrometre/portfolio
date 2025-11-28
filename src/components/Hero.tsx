@@ -15,9 +15,6 @@ const Hero = () => {
       {/* Background image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url('/assets/code_setup0.webp')`,
-        }}
       ></div>
       
       {/* Dark overlay for better text readability */}

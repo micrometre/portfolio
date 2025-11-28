@@ -27,7 +27,7 @@ interface ArticlesProps {
 }
 
 const ArticlesPreview = ({ articles }: ArticlesProps) => {
-  const featuredArticles = articles.filter(article => article.data.featured).slice(0, 2)
+  const featuredArticles = articles.filter(article => article.data.featured).slice(0, 3)
 
   const formatDate = (date: Date) => {
     return date.toLocaleDateString('en-US', {
@@ -80,9 +80,11 @@ const ArticlesPreview = ({ articles }: ArticlesProps) => {
                   </time>
                 </div>
 
-                <h3 className="text-xl font-bold mb-4 text-white group-hover:text-blue-400 transition-colors duration-200 leading-tight">
-                  {article.data.title}
-                </h3>
+                <a href={`/articles/${article.slug}`}>
+                  <h3 className="text-xl font-bold mb-4 text-white group-hover:text-blue-400 transition-colors duration-200 leading-tight hover:text-blue-300 cursor-pointer">
+                    {article.data.title}
+                  </h3>
+                </a>
                 
                 <p className="text-gray-400 mb-6 leading-relaxed line-clamp-3">
                   {article.data.description}

@@ -11,19 +11,19 @@
     "analyze:bundle": "astro build && npx vite-bundle-analyzer dist",
     "build:stats": "astro build --analyze --verbose"
   },
-  "dependencies": {
-    "@astrojs/mdx": "^4.3.4",
-    "@astrojs/react": "^4.3.0",
-    "@tailwindcss/vite": "^4.1.12",
-    "@types/react": "^19.1.10",
-    "@types/react-dom": "^19.1.7",
-    "astro": "^5.13.2",
-    "framer-motion": "^12.23.12",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "tailwindcss": "^4.1.12"
-  },
   "devDependencies": {
     "vite-bundle-analyzer": "^0.10.0"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.11",
+    "@astrojs/react": "^4.4.2",
+    "@tailwindcss/vite": "^4.1.17",
+    "@types/react": "^19.2.6",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^5.15.9",
+    "framer-motion": "^12.23.24",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tailwindcss": "^4.1.17"
   }
 }

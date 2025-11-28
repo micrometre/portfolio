@@ -12,6 +12,7 @@ import {
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isAppsDropdownOpen, setIsAppsDropdownOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +28,12 @@ const Navigation = () => {
     { name: 'Skills', href: '/#skills' },
     { name: 'Articles', href: '/articles' },
     { name: 'Contact', href: '/#contact' },
+  ]
+
+  const appItems = [
+    { name: 'Daily Cashier', href: 'https://daily-cashier.vercel.app/', description: 'Sales & Invoice Management' },
+    { name: 'Tax Calculator', href: 'https://tax-wise.netlify.app/', description: 'UK Tax Calculations' },
+    { name: 'Invoice Generator', href: 'https://dwinvoice.vercel.app/', description: 'Create Professional Invoices' },
   ]
 
   return (
@@ -69,6 +76,59 @@ const Navigation = () => {
               </motion.a>
             ))}
             
+            {/* Apps Dropdown */}
+            <div 
+              className="relative"
+              onMouseEnter={() => setIsAppsDropdownOpen(true)}
+              onMouseLeave={() => setIsAppsDropdownOpen(false)}
+            >
+              <motion.button
+                variants={fadeInDown}
+                initial="initial"
+                animate="animate"
+                transition={createDelayedAnimation(navItems.length * 0.1).transition}
+                className="text-gray-300 hover:text-white font-medium transition-colors duration-200 relative group flex items-center gap-1"
+              >
+                Apps
+                <svg 
+                  className={`w-4 h-4 transition-transform duration-200 ${isAppsDropdownOpen ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 group-hover:w-full transition-all duration-300"></span>
+              </motion.button>
+              
+              {/* Dropdown Menu */}
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: isAppsDropdownOpen ? 1 : 0, y: isAppsDropdownOpen ? 0 : -10 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                className={`absolute top-full right-0 mt-2 w-64 bg-gray-800/95 backdrop-blur-md rounded-xl border border-gray-700 shadow-xl overflow-hidden ${isAppsDropdownOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}
+              >
+                <div className="p-2">
+                  {appItems.map((app) => (
+                    <a
+                      key={app.name}
+                      href={app.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex flex-col px-4 py-3 rounded-lg hover:bg-gray-700/50 transition-colors duration-200 group"
+                    >
+                      <span className="text-white font-medium group-hover:text-blue-400 transition-colors flex items-center gap-2">
+                        {app.name}
+                        <svg className="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </span>
+                      <span className="text-gray-400 text-sm">{app.description}</span>
+                    </a>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -107,6 +167,26 @@ const Navigation = () => {
                 {item.name}
               </a>
             ))}
+            
+            {/* Mobile Apps Section */}
+            <div className="pt-4 border-t border-gray-700">
+              <span className="block text-gray-500 text-sm font-semibold mb-3">Apps</span>
+              {appItems.map((app) => (
+                <a
+                  key={app.name}
+                  href={app.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between py-2 text-gray-300 hover:text-white font-medium transition-colors duration-200"
+                >
+                  <span>{app.name}</span>
+                  <svg className="w-4 h-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>
