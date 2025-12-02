@@ -154,7 +154,7 @@ const Navigation = () => {
           initial="initial"
           animate={isMobileMenuOpen ? "animate" : "initial"}
           transition={{ duration: 0.3 }}
-          className="md:hidden overflow-hidden"
+          className="md:hidden overflow-hidden bg-gray-900/98 backdrop-blur-lg"
         >
           <div className="py-4 space-y-4 border-t border-gray-800">
             {navItems.map((item) => (
