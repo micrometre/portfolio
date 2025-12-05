@@ -27,8 +27,6 @@ interface ArticlesProps {
 }
 
 const ArticlesPreview = ({ articles }: ArticlesProps) => {
-  const featuredArticles = articles.filter(article => article.data.featured).slice(0, 3)
-
   const formatDate = (date: Date) => {
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
@@ -63,7 +61,7 @@ const ArticlesPreview = ({ articles }: ArticlesProps) => {
           whileInView="animate"
           {...createViewportAnimation()}
         >
-          {featuredArticles.map((article, index) => (
+          {articles.map((article, index) => (
             <motion.article
               key={article.slug}
               variants={slideUp}
@@ -72,9 +70,11 @@ const ArticlesPreview = ({ articles }: ArticlesProps) => {
             >
               <div className="p-8">
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="px-3 py-1 bg-gradient-to-r from-blue-600/20 to-purple-600/20 text-blue-300 text-sm font-semibold rounded-full border border-blue-500/30">
-                    Featured
-                  </span>
+                  {article.data.featured && (
+                    <span className="px-3 py-1 bg-gradient-to-r from-blue-600/20 to-purple-600/20 text-blue-300 text-sm font-semibold rounded-full border border-blue-500/30">
+                      Featured
+                    </span>
+                  )}
                   <time className="text-gray-500 text-sm">
                     {formatDate(article.data.pubDate)}
                   </time>
