@@ -1,6 +1,6 @@
 ---
 title: "Building MicroANPR: A Cloud-Native License Plate Recognition SaaS Platform"
-description: "A deep dive into building a production ready Automatic Number Plate Recognition (ANPR) SaaS platform. Learn how I leveraged Go, PaddleDetection, and PostgreSQL to create a scalable solution for parking operators, access control, and fleet management."
+description: "A deep dive into building a production ready Automatic Number Plate Recognition (ANPR) SaaS platform. Learn how to leverage Go, PaddleDetection, and PostgreSQL to create a scalable solution for parking operators, access control, and fleet management."
 
 pubDate: 2025-12-06
 tags: ["Go", "Computer Vision", "SaaS", "PaddlePaddle", "PostgreSQL", "Docker", "ANPR"]
@@ -42,7 +42,7 @@ Traditional ANPR systems come with significant pain points:
       <tr className="hover:bg-gray-800/50 transition-colors">
         <td className="border border-gray-700 px-4 py-3 font-medium"> Complex installation</td>
         <td className="border border-gray-700 px-4 py-3 text-gray-400">Weeks of on-site setup</td>
-        <td className="border border-gray-700 px-4 py-3 text-green-400">Deploy in minutes with Docker</td>
+        <td className="border border-gray-700 px-4 py-3 text-green-400">Deploy in minutes </td>
       </tr>
       <tr className="hover:bg-gray-800/50 transition-colors">
         <td className="border border-gray-700 px-4 py-3 font-medium"> Vendor lock-in</td>
@@ -611,7 +611,7 @@ curl -X POST -F "file=@parking-entry.mp4" \
   <h2 className="text-3xl font-bold mb-4 text-white"> Get Started</h2>
   <p className="text-gray-300 mb-6">Ready to modernize your parking or access control system?</p>
   <a href="https://gist.github.com/micrometre/87c4c19cf1f85031d25803679f38f03a" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all">
-    💻 View on GitHub
+     View on GitHub
   </a>
 </div>
 
@@ -623,7 +623,7 @@ curl -X POST -F "file=@parking-entry.mp4" \
       Building MicroANPR as a SaaS product taught me that the best enterprise solutions don't have to be complex or expensive. By combining Go's performance with modern AI/ML capabilities and wrapping it in a user-friendly subscription model, we can democratize technology that was previously only accessible to large corporations.
     </p>
     <p className="border-l-4 border-purple-500 pl-6 italic bg-purple-500/5 py-2 rounded-r-lg">
-      Whether you're managing a 10-space car park or a multi-site enterprise operation, MicroANPR scales with your needs—and you only pay for what you use.
+      Whether you're managing a 10-space car park or a multi site enterprise operation, MicroANPR scales with your needs and you only pay for what you use.
     </p>
   </div>
 </div>
