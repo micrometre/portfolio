@@ -107,10 +107,6 @@ g.Go(func() error {
         <td className="border border-gray-700 px-4 py-3 font-medium text-white"> Fast compilation</td>
         <td className="border border-gray-700 px-4 py-3 text-gray-300">Rapid deployment cycles</td>
       </tr>
-      <tr className="hover:bg-gray-800/50 transition-colors">
-        <td className="border border-gray-700 px-4 py-3 font-medium text-white"> Static binaries</td>
-        <td className="border border-gray-700 px-4 py-3 text-gray-300">Simple Docker images, no runtime dependencies</td>
-      </tr>
     </tbody>
   </table>
 </div>
@@ -620,7 +616,7 @@ curl -X POST -F "file=@parking-entry.mp4" \
   </h2>
   <div className="space-y-6 text-lg text-gray-300 leading-relaxed">
     <p>
-      Building MicroANPR as a SaaS product taught me that the best enterprise solutions don't have to be complex or expensive. By combining Go's performance with modern AI/ML capabilities and wrapping it in a user-friendly subscription model, we can democratize technology that was previously only accessible to large corporations.
+      The best enterprise solutions don't havce to be complex or expensive. By combining Go's performance with modern AI/ML capabilities and wrapping it in a user-friendly subscription model, we can democratize technology that was previously only accessible to large corporations.
     </p>
     <p className="border-l-4 border-purple-500 pl-6 italic bg-purple-500/5 py-2 rounded-r-lg">
       Whether you're managing a 10-space car park or a multi site enterprise operation, MicroANPR scales with your needs and you only pay for what you use.
