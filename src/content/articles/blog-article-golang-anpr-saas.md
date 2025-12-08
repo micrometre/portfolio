@@ -616,10 +616,10 @@ curl -X POST -F "file=@parking-entry.mp4" \
   </h2>
   <div className="space-y-6 text-lg text-gray-300 leading-relaxed">
     <p>
-      The best enterprise solutions don't havce to be complex or expensive. By combining Go's performance with modern AI/ML capabilities and wrapping it in a user-friendly subscription model, we can democratize technology that was previously only accessible to large corporations.
+      The best enterprise solutions don't have to be complex or expensive. By combining Go's performance with modern AI/ML capabilities and wrapping it in a user-friendly subscription model, we can make enterprise-grade technology accessible to businesses of all sizes.
     </p>
     <p className="border-l-4 border-purple-500 pl-6 italic bg-purple-500/5 py-2 rounded-r-lg">
-      Whether you're managing a 10-space car park or a multi site enterprise operation, MicroANPR scales with your needs and you only pay for what you use.
+      Whether you're managing a 10-space car park or a multi-site enterprise operation, MicroANPR scales with your needs and you only pay for what you use.
     </p>
   </div>
 </div>
