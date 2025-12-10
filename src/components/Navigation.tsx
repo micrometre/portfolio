@@ -35,6 +35,9 @@ const Navigation = () => {
     { name: 'Tax Calculator', href: 'https://tax-wise.netlify.app/', description: 'UK Tax Calculations' },
     { name: 'Invoice Generator', href: 'https://dwinvoice.vercel.app/', description: 'Create Professional Invoices' },
     { name: 'Browser LLM', href: 'https://frontend-llm-lac.vercel.app/', description: 'AI Chat in Your Browser' },
+    { name: 'Transformers', href: 'https://github.com/micrometre/transformers', description: 'Transformers Project' },
+    { name: 'Browser RAG Quiz', href: 'https://browser-rag-quiz.vercel.app', description: 'RAG Quiz Application' },
+    { name: 'Embeddings', href: 'https://embeddings-virid.vercel.app/', description: 'AI Quiz with Semantic Grading' },
   ]
 
   return (

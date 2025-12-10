@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro'
 import Navigation from '../components/Navigation'
 import Hero from '../components/Hero'
 import Skills from '../components/Skills'
+import Apps from '../components/Apps'
 import ArticlesPreview from '../components/ArticlesPreview'
 import Contact from '../components/Contact'
 import Footer from '../components/Footer'
@@ -17,6 +18,7 @@ const sortedArticles = articles.sort((a, b) => b.data.pubDate.valueOf() - a.data
 	<main>
 		<Hero client:visible />
 		<Skills client:visible />
+		<Apps client:visible />
 		<ArticlesPreview articles={sortedArticles} client:idle />
 		<Contact client:visible />
 	</main>
