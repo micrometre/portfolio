@@ -1,28 +1,31 @@
 import { motion } from 'framer-motion'
-import { 
-  fadeInUp, 
-  scaleIn, 
-  fadeIn, 
-  transitions, 
+import {
+  fadeInUp,
+  scaleIn,
+  fadeIn,
+  transitions,
   createDelayedAnimation,
   floatingAnimation,
-  floatingAnimationReverse 
+  floatingAnimationReverse
 } from '../utils/motion'
+import { FileText } from 'lucide-react'
 
 const Hero = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Background image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-      ></div>
-      
-      {/* Dark overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/60"></div>
-      
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/30 to-purple-600/30"></div>
-      
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gray-950">
+      {/* Enterprise Grid Background */}
+      <div className="absolute inset-0 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+
+      {/* Radial Spotlight */}
+      <div className="absolute inset-0 bg-transparent bg-[radial-gradient(circle_800px_at_50%_40%,#1e1e2e00,transparent)]">
+        {/* Subtle accent blob */}
+        <div className="absolute top-[-10%] left-[20%] w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '4s' }}></div>
+        <div className="absolute bottom-[-10%] right-[20%] w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '7s' }}></div>
+      </div>
+
+      {/* Vignette for focus */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#030712_100%)]"></div>
+
       <div className="container mx-auto px-6 text-center relative z-10">
         <motion.div
           variants={fadeInUp}
@@ -31,8 +34,8 @@ const Hero = () => {
           transition={transitions.default}
           className="max-w-4xl mx-auto"
         >
-          <motion.h1 
-            className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
+          <motion.h1
+            className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-gray-200 bg-clip-text text-transparent tracking-tight"
             variants={scaleIn}
             initial="initial"
             animate="animate"
@@ -40,9 +43,9 @@ const Hero = () => {
           >
             Hello, I am Henok
           </motion.h1>
-          
-          <motion.p 
-            className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed"
+
+          <motion.p
+            className="text-xl md:text-2xl text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto"
             variants={fadeInUp}
             initial="initial"
             animate="animate"
@@ -50,35 +53,23 @@ const Hero = () => {
           >
             Full-Stack Developer currently based in London, United Kingdom.
           </motion.p>
-          
+
           <motion.div
             variants={fadeInUp}
             initial="initial"
             animate="animate"
             transition={createDelayedAnimation(0.3).transition}
           >
-            <a 
+            <a
               target="_blank" href="/resume.pdf"
-              className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              className="inline-flex items-center px-8 py-3 bg-white text-gray-900 font-semibold rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_25px_rgba(255,255,255,0.4)] group"
             >
               View Resume
-              <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
+              <FileText className="ml-2 w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
             </a>
           </motion.div>
         </motion.div>
       </div>
-      
-      {/* Animated background elements */}
-      <motion.div
-        className="absolute top-1/4 right-1/4 w-32 h-32 bg-blue-500/20 rounded-full blur-xl"
-        {...floatingAnimation}
-      />
-      <motion.div
-        className="absolute bottom-1/3 left-1/4 w-24 h-24 bg-purple-500/20 rounded-full blur-xl"
-        {...floatingAnimationReverse}
-      />
     </section>
   )
 }

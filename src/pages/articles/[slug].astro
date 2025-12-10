@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro'
 import Navigation from '../../components/Navigation'
 import Footer from '../../components/Footer'
 import ExternalLink from '../../components/ExternalLink.astro'
+import EnterpriseBackground from '../../components/EnterpriseBackground.astro'
 import { getCollection, type CollectionEntry } from 'astro:content'
 
 export async function getStaticPaths() {
@@ -28,6 +29,7 @@ function formatDate(date: Date) {
 ---
 
 <Layout title={`${article.data.title} - Henok Wehibe`}>
+  <EnterpriseBackground />
   <Navigation client:load />
   
   <main class="pt-20">
