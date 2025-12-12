@@ -407,49 +407,31 @@ I chose simple questions so you can easily verify the results:
 
 ### Question: "What is the capital city of France?"
 
-| User Answer | Similarity | Grade |
-|-------------|------------|-------|
-| "Paris is the capital of France" | 92% | Excellent |
-| "The capital is Paris" | 85% | Excellent |
-| "Paris" | 78% | Good |
-| "A city in Europe" | 48% | Try Again |
-
-
 
 <div className="overflow-x-auto my-8">
   <table className="w-full border-collapse">
     <thead>
       <tr className="bg-gradient-to-r from-blue-600/20 to-purple-600/20">
-        <th className="border border-gray-700 px-4 py-3 text-left text-blue-300 font-semibold">Challenge</th>
-        <th className="border border-gray-700 px-4 py-3 text-left text-red-300 font-semibold">Traditional Solutions</th>
-        <th className="border border-gray-700 px-4 py-3 text-left text-green-300 font-semibold">MicroANPR Approach</th>
+        <th className="border border-gray-700 px-4 py-3 text-left text-blue-300 font-semibold">User Answer</th>
+        <th className="border border-gray-700 px-4 py-3 text-left text-red-300 font-semibold">Similarity</th>
+        <th className="border border-gray-700 px-4 py-3 text-left text-green-300 font-semibold">Grade</th>
       </tr>
     </thead>
     <tbody>
       <tr className="hover:bg-gray-800/50 transition-colors">
-        <td className="border border-gray-700 px-4 py-3 font-medium"> High upfront costs</td>
-        <td className="border border-gray-700 px-4 py-3 text-gray-400">£100,000+ hardware + software licenses</td>
-        <td className="border border-gray-700 px-4 py-3 text-green-400">Pay-as-you-go subscription</td>
+        <td className="border border-gray-700 px-4 py-3 font-medium">Paris is the capital of France</td>
+        <td className="border border-gray-700 px-4 py-3 text-gray-400">92%</td>
+        <td className="border border-gray-700 px-4 py-3 text-green-400">Excellent</td>
       </tr>
       <tr className="hover:bg-gray-800/50 transition-colors">
-        <td className="border border-gray-700 px-4 py-3 font-medium"> Complex installation</td>
-        <td className="border border-gray-700 px-4 py-3 text-gray-400">Weeks of on-site setup</td>
-        <td className="border border-gray-700 px-4 py-3 text-green-400">Deploy in minutes </td>
+        <td className="border border-gray-700 px-4 py-3 font-medium">The capital is Paris</td>
+        <td className="border border-gray-700 px-4 py-3 text-gray-400">85%</td>
+        <td className="border border-gray-700 px-4 py-3 text-green-400">Excellent</td>
       </tr>
       <tr className="hover:bg-gray-800/50 transition-colors">
-        <td className="border border-gray-700 px-4 py-3 font-medium"> Vendor lock-in</td>
-        <td className="border border-gray-700 px-4 py-3 text-gray-400">Proprietary formats</td>
-        <td className="border border-gray-700 px-4 py-3 text-green-400">Open APIs, export anytime</td>
-      </tr>
-      <tr className="hover:bg-gray-800/50 transition-colors">
-        <td className="border border-gray-700 px-4 py-3 font-medium"> Limited scalability</td>
-        <td className="border border-gray-700 px-4 py-3 text-gray-400">Buy new hardware</td>
-        <td className="border border-gray-700 px-4 py-3 text-green-400">Scale instantly in the cloud</td>
-      </tr>
-      <tr className="hover:bg-gray-800/50 transition-colors">
-        <td className="border border-gray-700 px-4 py-3 font-medium">️ Maintenance burden</td>
-        <td className="border border-gray-700 px-4 py-3 text-gray-400">On-site IT support required</td>
-        <td className="border border-gray-700 px-4 py-3 text-green-400">Managed updates, zero downtime</td>
+        <td className="border border-gray-700 px-4 py-3 font-medium">Paris</td>
+        <td className="border border-gray-700 px-4 py-3 text-gray-400">78%</td>
+        <td className="border border-gray-700 px-4 py-3 text-green-400">Good</td>
       </tr>
     </tbody>
   </table>
@@ -457,20 +439,27 @@ I chose simple questions so you can easily verify the results:
 
 
 
-### Question: "Why is the sky blue?"
 
-| User Answer | Similarity | Grade |
-|-------------|------------|-------|
-| "Light scattering in the atmosphere makes blue visible" | 88% | Excellent |
-| "Blue light scatters more than other colors" | 82% | Good |
-| "Because of the sun" | 55% | Partial |
-| "It just is" | 32% | Try Again |
+<div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-2xl p-8 my-12 text-center">
+  <p className="text-gray-300 mb-6"> The model understands that different phrasings of the same concept should receive credit! </p>
+</div>
 
-The model understands that different phrasings of the same concept should receive credit!
 
-## Performance Considerations
 
-### Model Loading
+
+<div className="my-6 ">
+  <h3 className="text-2xl font-bold mb-2 text-white">Performance Considerations </h3>
+</div>
+
+
+
+
+
+
+
+<div className="my-6 ">
+  <h3 className="text-2xl font-bold mb-2 text-white">Model Loading </h3>
+</div>
 
 The `all-MiniLM-L6-v2` model is ~25MB (quantized). First load downloads it, but subsequent loads use the browser cache:
 
@@ -483,11 +472,14 @@ const embedder = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2',
 });
 ```
 
-### Embedding Speed
+<div className="my-6 ">
+  <h3 className="text-2xl font-bold mb-2 text-white">Embedding Speed </h3>
+</div>
 
 On my machine, generating an embedding takes ~50-100ms per sentence. For a quiz with 5-10 questions, pre-computing embeddings adds 0.5-1 second to startup.
 
-### Memory Usage
+<div className="my-6 ">
+  <h3 className="text-2xl font-bold mb-2 text-white">Memory Usage </h3>
+</div>
 
 The model uses ~100-150MB of memory. This is reasonable for modern devices but worth considering for mobile users.
-
