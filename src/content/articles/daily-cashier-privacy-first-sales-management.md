@@ -2,7 +2,7 @@
 title: 'Daily Cashier: A Privacy-First Sales Management System'
 description: 'Offline-first sales tracking and invoice management system using WebAssembly, SQLite, and Next.js - with zero server dependencies.'
 pubDate: 2025-11-20
-tags: ['Next.js', 'WebAssembly', 'SQLite', 'TypeScript', 'Privacy', 'OPFS', 'PWA, javascript', "typescript"]
+tags: ['Next.js', 'WebAssembly', 'SQLite', 'Javascript',  'TypeScript', 'Privacy', 'OPFS', 'PWA', ]
 image: '/assets/daily-cashier-cover.jpg'
 featured: true
 ---
