@@ -2,7 +2,7 @@
 title: "Building MicroANPR: A Cloud-Native License Plate Recognition SaaS Platform"
 description: "A deep dive into building a production ready Automatic Number Plate Recognition (ANPR) SaaS platform. Learn how to leverage Go, PaddleDetection, and PostgreSQL to create a scalable solution for parking operators, access control, and fleet management."
 pubDate: 2025-12-06
-tags: ["Go", "Computer Vision", "SaaS", "PaddlePaddle", "PostgreSQL", "Docker", "ANPR"]
+tags: ["Go", "Computer Vision", "SaaS", "PaddlePaddle", "PostgreSQL", "Docker", "ANPR", "Python"]
 featured: true
 ---
 
