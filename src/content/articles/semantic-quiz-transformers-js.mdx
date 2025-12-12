@@ -1,0 +1,493 @@
+---
+title: "Building a Semantic Quiz with AI-Powered Answer Grading in the Browser"
+description: "Build an interactive quiz that grades free-text answers using semantic similarity all running 100% client-side with Transformers.js. "
+pubDate: "December 11, 2025"
+author: "Henok Wehibe"
+tags: ["ai", "transformers.js", "javascript", "tutorial", "embeddings"]
+featured: true
+image: "/images/semantic-quiz-hero.png"
+readingTime: "10 min read"
+---
+
+
+
+
+<div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50 rounded-2xl p-8 my-12 shadow-xl backdrop-blur-sm">
+  <h2 className="text-3xl font-bold mb-6 flex items-center gap-3 text-white">
+    Moving Beyond Exact Matches: Semantic Answer Grading
+  </h2>
+  <div className="space-y-6 text-lg text-gray-300 leading-relaxed">
+        <p className="border-l-4 border-blue-500 pl-6 italic bg-blue-500/5 py-2 rounded-r-lg">
+
+
+
+Imagine a quiz that understands that "Paris is the capital of France" and "The capital of France is Paris" are semantically identical, awarding full credit to both. 
+
+
+Follow this guide to build an interactive quiz featuring semantic answer grading, a technique made possible by Transformers.js.
+
+        </p>
+  </div>
+</div>
+
+
+
+**Traditional Quiz Limitations:**
+
+- ❌ **Exact match only (case sensitive)**
+  - If the answer is "New York City," writing "new york city" will be marked wrong.
+
+- ❌ **No paraphrasing**
+  - You must match the source exactly. If the correct answer in the system is "The capital of France is Paris," but you write "Paris is the capital of France," you will still be marked wrong. Your own words don't count.
+
+- ❌ **Regex/Maintenance Headaches for the Quiz Creator**
+  - The person who creates the quiz has to anticipate every possible way a User might phrase the correct answer. 
+
+- ❌ **Limited feedback**
+  - The only feedback you get is right or wrong. It can't offer any suggestions, show you how close your answer was, or explain why your phrasing failed the exact-match test.
+
+
+
+
+
+
+
+<div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-2xl p-8 my-12 text-center">
+  <h2 className="text-3xl font-bold mb-4 text-white"> Enter Transformers.js</h2>
+  <p className="text-gray-300 mb-6">Hugging Face's library for running transformers models directly in the browser using WebAssembly (WASM). </p>
+  <p className="text-gray-300 mb-6">It brings the power of highly efficient models like Mistral and all-MiniLM-L6-v2 to the client-side, all running entirely in your browser.</p>
+</div>
+
+
+
+<div className=" rounded-2xl p-8 my-12 text-center">
+  <h2 className="text-3xl font-bold mb-4 text-white"> Why Browser-Based</h2>
+</div>
+
+
+<div className="overflow-x-auto my-8">
+  <table className="w-full border-collapse">
+    <thead>
+      <tr className="bg-gradient-to-r from-blue-600/20 to-purple-600/20">
+        <th className="border border-gray-700 px-4 py-3 text-left text-blue-300 font-semibold">Benefits</th>
+        <th className="border border-gray-700 px-4 py-3 text-left text-green-300 font-semibold">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr className="hover:bg-gray-800/50 transition-colors">
+        <td className="border border-gray-700 px-4 py-3 font-medium text-white">Privacy</td>
+        <td className="border border-gray-700 px-4 py-3 text-gray-300">Answers never leave the user's device</td>
+      </tr>
+      <tr className="hover:bg-gray-800/50 transition-colors">
+        <td className="border border-gray-700 px-4 py-3 font-medium text-white">Zero cost</td>
+        <td className="border border-gray-700 px-4 py-3 text-gray-300">Runs efficiently on minimal cloud instances</td>
+      </tr>
+      <tr className="hover:bg-gray-800/50 transition-colors">
+        <td className="border border-gray-700 px-4 py-3 font-medium text-white">Offline</td>
+        <td className="border border-gray-700 px-4 py-3 text-gray-300">Works without internet after initial load</td>
+      </tr>
+      <tr className="hover:bg-gray-800/50 transition-colors">
+        <td className="border border-gray-700 px-4 py-3 font-medium text-white">Low latency</td>
+        <td className="border border-gray-700 px-4 py-3 text-gray-300">No network round-trips</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+
+
+
+<div className="border-blue-500/30 rounded-2xl p-8 my-12 text-center">
+  <h2 className="text-3xl font-bold mb-4 text-white">How Semantic Grading Works</h2>
+</div>
+
+
+
+
+
+<div className="my-2 ">
+  <h3 className="text-2xl font-bold mb-2 text-white">The Process happens in three steps:</h3>
+</div>
+
+
+<div className="my-2 ">
+  <h3 className="text-2xl font-bold mb-2 text-white">1. Text Embeddings</h3>
+</div>
+
+
+
+We convert text into **embedding vectors**  lists of numbers that capture meaning. The model we use (`all-MiniLM-L6-v2`) produces 384-dimensional vectors.
+
+```javascript
+import { pipeline } from '@huggingface/transformers';
+
+// Load the embedding model
+const embedder = await pipeline(
+  'feature-extraction', 
+  'Xenova/all-MiniLM-L6-v2',
+  { dtype: 'q8' } // Quantized for faster loading
+);
+
+// Generate embedding for text
+async function embed(text) {
+  const output = await embedder(text, { 
+    pooling: 'mean', 
+    normalize: true 
+  });
+  return Array.from(output.data);
+}
+```
+
+
+
+
+
+
+
+<div className="my-2 ">
+  <h3 className="text-2xl font-bold mb-2 text-white">2. Cosine Similarity</h3>
+</div>
+
+To compare two answers, we calculate the **cosine similarity** between their vectors. This measures the angle between them smaller angle means more similar meaning.
+
+
+```javascript
+
+/**
+ * Calculates the cosine similarity between two vectors (A and B).
+ * In our case, these are the numerical "fingerprints" of the two sentences.
+ *
+ * @param {number[]} a - The vector for the correct answer.
+ * @param {number[]} b - The vector for the user's answer.
+ * @returns {number} A similarity score between 0 and 1.
+ */
+function cosineSimilarity(a, b) {
+  // 1. Initialize variables used for the numerator and denominator of the formula.
+  // dotProduct corresponds to the A • B part (the comparison).
+  let dotProduct = 0;
+  // normA and normB will hold the squared length of each vector (for the denominator).
+  let normA = 0;
+  let normB = 0;
+
+  // 2. Loop through every dimension (feature) of the two vectors.
+  for (let i = 0; i < a.length; i++) {
+    // Calculate the A • B (dot product):
+    // Multiply the corresponding elements and add them up.
+    dotProduct += a[i] * b[i];
+
+    // Calculate the squared length of vector A (A * A).
+    normA += a[i] * a[i];
+
+    // Calculate the squared length of vector B (B * B).
+    normB += b[i] * b[i];
+  }
+
+  // 3. Return the final result using the full formula: (A • B) / (||A|| * ||B||)
+  // We take the square root of the norms to get the actual lengths (||A|| and ||B||).
+  return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
+}
+
+
+```
+
+**The formula:**
+
+
+$$
+\text{similarity} = \frac{A \cdot B}{\|A\| \times \|B\|}
+$$
+
+To see how close they are, we calculate the cosine similarity. Think of this as a special measurement that tells us the "distance" between the two meanings.
+
+The formula itself looks a bit intimidating, but don't worry about solving it by hand. The model handles all the complex math instantly:
+
+Where, for our purposes:
+
+- $\vec{A} \cdot \vec{B}$ is the comparison of the unique dimensions (features) of the two vectors.
+
+- $\|\vec{A}\|$ and $\|\vec{B}\|$ are the lengths of the vectors, ensuring the score is always between 0 and 1.
+
+**Simply put: The closer the calculated score is to 1, the more confident we are that the user's answer is correct.**
+
+
+
+<div className="my-6 ">
+  <h3 className="text-2xl font-bold mb-2 text-white"> 3. Grade Based on Similarity Score</h3>
+</div>
+
+
+
+We map similarity scores to grades:
+
+| Similarity | Rating | Points | Meaning |
+|------------|--------|--------|---------|
+| ≥ 85% | Excellent! | 1.0 | Core concept captured accurately |
+| ≥ 70% | Good! | 0.8 | Good understanding with minor gaps |
+| ≥ 55% | Partial | 0.5 | Some relevant concepts mentioned |
+| < 55% | Try Again | 0 | Answer doesn't match expected concept |
+
+## Building the Quiz
+
+Let's build it step by step.
+
+### Project Setup
+
+```bash
+npm create vite@latest browser-quiz
+cd browser-quiz
+npm install @huggingface/transformers
+```
+
+### Quiz Data Structure
+
+Define questions with expected answers and hints. I chose simple, universally-known questions so anyone can test the semantic matching:
+
+```javascript
+const quizData = [
+  {
+    question: "What is the capital city of France?",
+    answer: "Paris is the capital city of France, located in the northern part of the country along the Seine River.",
+    hint: "It's famous for the Eiffel Tower and is known as the City of Light."
+  },
+  {
+    question: "What do plants need to make their own food?",
+    answer: "Plants need sunlight, water, and carbon dioxide to perform photosynthesis and produce glucose for energy.",
+    hint: "Think about what plants get from the sun, soil, and air."
+  },
+  {
+    question: "Why is the sky blue?",
+    answer: "The sky appears blue because sunlight is scattered by the atmosphere, and blue light is scattered more than other colors due to its shorter wavelength.",
+    hint: "It has to do with how light interacts with air molecules."
+  },
+  // ... more questions
+];
+```
+
+### Pre-compute Answer Embeddings
+
+For efficiency, we compute answer embeddings once at startup:
+
+```javascript
+
+
+// This array will store the numerical "fingerprints" (embeddings)
+// for all the correct answers in the quiz data.
+let answerEmbeddings = [];
+
+/**
+ * Initializes the quiz by pre-calculating the semantic embeddings
+ * for all official correct answers. This only needs to be done once
+ * when the quiz loads, which saves time during the grading process.
+ */
+async function initializeQuizEmbeddings() {
+  // A friendly message to the console so the user knows the AI model
+  // is currently working in the background.
+  console.log('Pre-computing quiz answer embeddings...');
+
+  // Loop through every question object contained in the 'quizData' array.
+  // The 'quizData' array should contain all your questions and correct answers.
+  for (const quiz of quizData) {
+    // Await is crucial here! We pause and wait for the AI model's 'embed' function
+    // to process the text (quiz.answer) and return its numerical vector/fingerprint.
+    const embedding = await embed(quiz.answer);
+
+    // Store the resulting numerical vector (the "fingerprint" of the correct meaning)
+    // into our main storage array.
+    answerEmbeddings.push(embedding);
+  }
+
+  // Final message to confirm that all correct answer vectors are ready for grading.
+  console.log('Quiz embeddings ready!');
+}
+
+
+```
+
+### Evaluate User Answers
+
+When a user submits an answer, we compare it to the expected answer:
+
+```javascript
+/**
+ * Main grading function. It takes the user's text and the question's index,
+ * and uses semantic comparison to return a detailed score and grade.
+ *
+ * @param {string} userAnswer - The text the user typed (e.g., "Paris is the capital").
+ * @param {number} questionIndex - The position of the current question in the quiz.
+ * @returns {object} An object containing the final grade, points, and similarity score.
+ */
+async function evaluateAnswer(userAnswer, questionIndex) {
+  // 1. Get embedding for user's answer
+  // We call the AI model's 'embed' function to turn the user's text
+  // into its unique numerical vector (fingerprint). We must wait for this step.
+  const userEmbedding = await embed(userAnswer);
+
+  // 2. Compare with expected answer
+  // Retrieve the pre-calculated, correct answer's fingerprint (vector)
+  // from the array we initialized earlier (answerEmbeddings).
+  const expectedEmbedding = answerEmbeddings[questionIndex];
+
+  // Run the cosineSimilarity function we defined to get a final score (0 to 1).
+  const similarity = cosineSimilarity(userEmbedding, expectedEmbedding);
+
+  // 3. Determine grade based on the score
+  // We map the continuous similarity score to discrete grades (the grading threshold).
+  // Note: These threshold numbers (0.85, 0.70, etc.) can be adjusted!
+  if (similarity >= 0.85) {
+    // Score is 85% or higher: meanings are highly similar.
+    return { label: 'Excellent!', points: 1.0, similarity };
+  } else if (similarity >= 0.70) {
+    // Score is 70% or higher: meanings are good, maybe slight variation.
+    return { label: 'Good!', points: 0.8, similarity };
+  } else if (similarity >= 0.55) {
+    // Score is 55% or higher: there is some relevant meaning, but it's partial.
+    return { label: 'Partial', points: 0.5, similarity };
+  } else {
+    // Score is below 55%: the meaning is too different from the correct answer.
+    return { label: 'Try Again', points: 0, similarity };
+  }
+}
+
+
+
+```
+
+## The Complete UI
+
+Here's how I structured the quiz interface:
+
+```html
+<div class="quiz-section">
+  <h2>Interactive ML Quiz</h2>
+  
+  <div class="quiz-header">
+    <span id="quiz-progress">Question 1 of 5</span>
+    <span id="quiz-score">Score: 0/0 (0%)</span>
+  </div>
+  
+  <div class="quiz-question" id="quiz-question">
+    Loading quiz...
+  </div>
+  
+  <textarea 
+    id="quiz-answer" 
+    placeholder="Type your answer here..."
+    disabled
+  ></textarea>
+  
+  <div class="quiz-buttons">
+    <button id="submit-answer-btn">Submit Answer</button>
+    <button id="show-hint-btn">Show Hint</button>
+    <button id="next-question-btn" style="display: none;">
+      Next Question
+    </button>
+  </div>
+  
+  <div id="quiz-feedback"></div>
+</div>
+```
+
+
+<div className="my-6 ">
+  <h3 className="text-2xl font-bold mb-2 text-white">  Real World Examples</h3>
+</div>
+
+
+
+<div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50 rounded-2xl p-8 my-12 shadow-xl backdrop-blur-sm">
+  <h2 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+Here's how semantic matching performs on actual answers. 
+  </h2>
+</div>
+
+I chose simple questions so you can easily verify the results:
+
+### Question: "What is the capital city of France?"
+
+| User Answer | Similarity | Grade |
+|-------------|------------|-------|
+| "Paris is the capital of France" | 92% | Excellent |
+| "The capital is Paris" | 85% | Excellent |
+| "Paris" | 78% | Good |
+| "A city in Europe" | 48% | Try Again |
+
+
+
+<div className="overflow-x-auto my-8">
+  <table className="w-full border-collapse">
+    <thead>
+      <tr className="bg-gradient-to-r from-blue-600/20 to-purple-600/20">
+        <th className="border border-gray-700 px-4 py-3 text-left text-blue-300 font-semibold">Challenge</th>
+        <th className="border border-gray-700 px-4 py-3 text-left text-red-300 font-semibold">Traditional Solutions</th>
+        <th className="border border-gray-700 px-4 py-3 text-left text-green-300 font-semibold">MicroANPR Approach</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr className="hover:bg-gray-800/50 transition-colors">
+        <td className="border border-gray-700 px-4 py-3 font-medium"> High upfront costs</td>
+        <td className="border border-gray-700 px-4 py-3 text-gray-400">£100,000+ hardware + software licenses</td>
+        <td className="border border-gray-700 px-4 py-3 text-green-400">Pay-as-you-go subscription</td>
+      </tr>
+      <tr className="hover:bg-gray-800/50 transition-colors">
+        <td className="border border-gray-700 px-4 py-3 font-medium"> Complex installation</td>
+        <td className="border border-gray-700 px-4 py-3 text-gray-400">Weeks of on-site setup</td>
+        <td className="border border-gray-700 px-4 py-3 text-green-400">Deploy in minutes </td>
+      </tr>
+      <tr className="hover:bg-gray-800/50 transition-colors">
+        <td className="border border-gray-700 px-4 py-3 font-medium"> Vendor lock-in</td>
+        <td className="border border-gray-700 px-4 py-3 text-gray-400">Proprietary formats</td>
+        <td className="border border-gray-700 px-4 py-3 text-green-400">Open APIs, export anytime</td>
+      </tr>
+      <tr className="hover:bg-gray-800/50 transition-colors">
+        <td className="border border-gray-700 px-4 py-3 font-medium"> Limited scalability</td>
+        <td className="border border-gray-700 px-4 py-3 text-gray-400">Buy new hardware</td>
+        <td className="border border-gray-700 px-4 py-3 text-green-400">Scale instantly in the cloud</td>
+      </tr>
+      <tr className="hover:bg-gray-800/50 transition-colors">
+        <td className="border border-gray-700 px-4 py-3 font-medium">️ Maintenance burden</td>
+        <td className="border border-gray-700 px-4 py-3 text-gray-400">On-site IT support required</td>
+        <td className="border border-gray-700 px-4 py-3 text-green-400">Managed updates, zero downtime</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+### Question: "Why is the sky blue?"
+
+| User Answer | Similarity | Grade |
+|-------------|------------|-------|
+| "Light scattering in the atmosphere makes blue visible" | 88% | Excellent |
+| "Blue light scatters more than other colors" | 82% | Good |
+| "Because of the sun" | 55% | Partial |
+| "It just is" | 32% | Try Again |
+
+The model understands that different phrasings of the same concept should receive credit!
+
+## Performance Considerations
+
+### Model Loading
+
+The `all-MiniLM-L6-v2` model is ~25MB (quantized). First load downloads it, but subsequent loads use the browser cache:
+
+```javascript
+const embedder = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', {
+  dtype: 'q8', // 8-bit quantization for smaller size
+  progress_callback: (progress) => {
+    console.log(`Loading: ${Math.round(progress.progress)}%`);
+  }
+});
+```
+
+### Embedding Speed
+
+On my machine, generating an embedding takes ~50-100ms per sentence. For a quiz with 5-10 questions, pre-computing embeddings adds 0.5-1 second to startup.
+
+### Memory Usage
+
+The model uses ~100-150MB of memory. This is reasonable for modern devices but worth considering for mobile users.
+
