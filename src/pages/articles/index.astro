@@ -7,6 +7,9 @@ import { getCollection } from 'astro:content'
 const articles = await getCollection('articles')
 const sortedArticles = articles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 
+// Extract all unique tags from articles
+const allTags = [...new Set(articles.flatMap(article => article.data.tags || []))].sort()
+
 function formatDate(date: Date) {
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
@@ -30,9 +33,37 @@ function formatDate(date: Date) {
         </p>
       </div>
 
-      <div class="max-w-4xl mx-auto space-y-8">
+      <!-- Tag Filter Section -->
+      <div class="max-w-4xl mx-auto mb-12">
+        <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl p-6 border border-gray-700">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-semibold text-white">Filter by Tag</h2>
+            <button 
+              id="clear-filters"
+              class="text-sm text-gray-400 hover:text-white transition-colors duration-200 hidden"
+            >
+              Clear Filters
+            </button>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            {allTags.map((tag) => (
+              <button
+                class="tag-filter px-3 py-1.5 bg-purple-600/20 text-purple-300 rounded-lg text-sm border border-purple-500/30 hover:bg-purple-600/30 hover:border-purple-500/50 transition-all duration-200"
+                data-tag={tag}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="max-w-4xl mx-auto space-y-8" id="articles-container">
         {sortedArticles.map((article, index) => (
-          <article class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-8 border border-gray-700 hover:border-blue-500/50 transition-all duration-300 group">
+          <article 
+            class="article-card bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-8 border border-gray-700 hover:border-blue-500/50 transition-all duration-300 group"
+            data-tags={JSON.stringify(article.data.tags || [])}
+          >
             <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
               <div class="flex-1">
                 {article.data.featured && (
@@ -93,3 +124,70 @@ function formatDate(date: Date) {
   
   <Footer client:idle />
 </Layout>
+
+<script>
+  // Tag filtering functionality
+  const tagFilters = document.querySelectorAll('.tag-filter');
+  const clearButton = document.getElementById('clear-filters');
+  const articleCards = document.querySelectorAll('.article-card');
+  let activeFilters = new Set<string>();
+
+  function updateArticleVisibility() {
+    articleCards.forEach((card) => {
+      const articleTags = JSON.parse(card.getAttribute('data-tags') || '[]');
+      
+      if (activeFilters.size === 0) {
+        // No filters active, show all articles
+        card.classList.remove('hidden');
+      } else {
+        // Check if article has any of the active filter tags
+        const hasMatchingTag = articleTags.some((tag: string) => activeFilters.has(tag));
+        if (hasMatchingTag) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      }
+    });
+
+    // Show/hide clear button
+    if (activeFilters.size > 0) {
+      clearButton?.classList.remove('hidden');
+    } else {
+      clearButton?.classList.add('hidden');
+    }
+  }
+
+  tagFilters.forEach((button) => {
+    button.addEventListener('click', () => {
+      const tag = button.getAttribute('data-tag');
+      if (!tag) return;
+
+      if (activeFilters.has(tag)) {
+        // Remove filter
+        activeFilters.delete(tag);
+        button.classList.remove('bg-purple-600', 'border-purple-500', 'ring-2', 'ring-purple-500/50');
+        button.classList.add('bg-purple-600/20', 'border-purple-500/30');
+      } else {
+        // Add filter
+        activeFilters.add(tag);
+        button.classList.remove('bg-purple-600/20', 'border-purple-500/30');
+        button.classList.add('bg-purple-600', 'border-purple-500', 'ring-2', 'ring-purple-500/50');
+      }
+
+      updateArticleVisibility();
+    });
+  });
+
+  clearButton?.addEventListener('click', () => {
+    activeFilters.clear();
+    
+    // Reset all tag buttons
+    tagFilters.forEach((button) => {
+      button.classList.remove('bg-purple-600', 'border-purple-500', 'ring-2', 'ring-purple-500/50');
+      button.classList.add('bg-purple-600/20', 'border-purple-500/30');
+    });
+
+    updateArticleVisibility();
+  });
+</script>
