@@ -1,6 +1,6 @@
 ---
-title: 'Building Daily Cashier: A Privacy-First Sales Management System'
-description: 'How I built a complete offline-first sales tracking and invoice management system using WebAssembly, SQLite, and Next.js - with zero server dependencies.'
+title: 'Daily Cashier: A Privacy-First Sales Management System'
+description: 'Offline-first sales tracking and invoice management system using WebAssembly, SQLite, and Next.js - with zero server dependencies.'
 pubDate: 2025-11-20
 tags: ['Next.js', 'WebAssembly', 'SQLite', 'TypeScript', 'Privacy', 'OPFS', 'PWA']
 image: '/assets/daily-cashier-cover.jpg'
@@ -13,11 +13,13 @@ featured: true
 
 
 
-In an era where business data is increasingly valuable and privacy concerns are mounting, I built **Daily Cashier**—a complete sales management system that operates entirely in the browser without any server dependencies. This article explores the technical decisions, challenges, and innovative solutions behind creating a fully functional business application that prioritizes user privacy and data ownership.
+In response to growing privacy concerns, I built **Daily Cashier** a serverless, browser-based sales management system. 
+
+This article explores the technical decisions behind creating this privacy-first business application.
 
 ---
 
-## The Problem: Privacy vs. Functionality
+## Privacy vs. Functionality
 
 Most modern business applications require cloud storage, user accounts, and third-party services. While convenient, this approach raises several significant concerns:
 
@@ -29,7 +31,7 @@ Most modern business applications require cloud storage, user accounts, and thir
 
 I wanted to build a full-featured sales management system that gives users **complete control over their data** while maintaining professional functionality.
 
-## The Solution: Local-First Architecture
+## Local-First Architecture
 
 Daily Cashier adopts a **local-first** approach where all data processing and storage happens directly in the user's browser. This architecture delivers powerful benefits:
 
