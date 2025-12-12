@@ -139,6 +139,53 @@ async function embed(text) {
   });
   return Array.from(output.data);
 }
+
+
+
+// 1. Import the necessary function from the Transformers.js library.
+// The 'pipeline' function is the easiest way to load and use pre-trained AI models.
+import { pipeline } from '@huggingface/transformers';
+
+// --- Model Setup ---
+
+// Declare a variable to hold the loaded AI model (the "embedder").
+let embedder;
+
+/**
+ * An Immediately Invoked Function Expression (IIFE) is often used here
+ * to load the model right when the script starts.
+ */
+// Load the embedding model
+embedder = await pipeline(
+  'feature-extraction', // Specifies the task: turning text into numerical features/vectors.
+  'Xenova/all-MiniLM-L6-v2', // The specific model name: a small, fast, highly effective Sentence Transformer.
+  { dtype: 'q8' } // Optimization: 'q8' means 8-bit quantization, which makes the model file much smaller and faster to load in the browser.
+);
+
+
+// --- The Core Embedding Function ---
+
+/**
+ * Converts a piece of text (like a correct answer or a user's answer)
+ * into its numerical vector (the "fingerprint" of its meaning).
+ *
+ * @param {string} text - The input sentence (e.g., "Paris is the capital").
+ * @returns {number[]} A numerical array (the vector/embedding).
+ */
+async function embed(text) {
+  // Pass the text into the loaded model.
+  const output = await embedder(text, {
+     // 'mean' pooling averages all the word vectors into a single sentence vector.
+     pooling: 'mean',
+     // 'normalize' ensures the vector's length is 1, which is required for accurate cosine similarity.
+     normalize: true
+   });
+  
+  // Convert the model's internal data format into a standard JavaScript Array
+  // so we can use it easily in our cosineSimilarity function.
+  return Array.from(output.data);
+}
+
 ```
 
 
@@ -229,11 +276,20 @@ We map similarity scores to grades:
 | ≥ 55% | Partial | 0.5 | Some relevant concepts mentioned |
 | < 55% | Try Again | 0 | Answer doesn't match expected concept |
 
-## Building the Quiz
 
-Let's build it step by step.
 
-### Project Setup
+<div className=" rounded-2xl p-8 my-12 text-center">
+  <h2 className="text-3xl font-bold mb-4 text-white"> Let's build it step by step:</h2>
+</div>
+
+
+
+
+<div className="my-2 ">
+  <h3 className="text-2xl font-bold mb-2 text-white">1. Project Setup</h3>
+</div>
+
+
 
 ```bash
 npm create vite@latest browser-quiz
@@ -241,7 +297,11 @@ cd browser-quiz
 npm install @huggingface/transformers
 ```
 
-### Quiz Data Structure
+
+<div className="my-2 ">
+  <h3 className="text-2xl font-bold mb-2 text-white">2. Quiz Data Structure</h3>
+</div>
+
 
 Define questions with expected answers and hints. I chose simple, universally-known questions so anyone can test the semantic matching:
 
