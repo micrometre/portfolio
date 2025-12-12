@@ -7,7 +7,10 @@ featured: true
 ---
 
 
----
+
+#  📂 <a href="https://gist.github.com/micrometre/87c4c19cf1f85031d25803679f38f03a" target="_blank" rel="noopener">View Source Code</a>
+
+
 
 <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50 rounded-2xl p-8 my-12 shadow-xl backdrop-blur-sm">
   <h2 className="text-3xl font-bold mb-6 flex items-center gap-3 text-white">
@@ -603,13 +606,7 @@ curl -X POST -F "file=@parking-entry.mp4" \
   </div>
 </div>
 
-<div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-2xl p-8 my-12 text-center">
-  <h2 className="text-3xl font-bold mb-4 text-white"> Get Started</h2>
-  <p className="text-gray-300 mb-6">Ready to modernize your parking or access control system?</p>
-  <a href="https://gist.github.com/micrometre/87c4c19cf1f85031d25803679f38f03a" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all">
-     View on GitHub
-  </a>
-</div>
+
 
 <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50 rounded-2xl p-8 my-12 shadow-xl backdrop-blur-sm">
   <h2 className="text-3xl font-bold mb-6 flex items-center gap-3 text-white">

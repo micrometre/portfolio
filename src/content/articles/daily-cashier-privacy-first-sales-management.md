@@ -125,7 +125,3 @@ The combination of WebAssembly, modern storage APIs, and thoughtful architecture
 
 ***
 
-**🔗 Resources:**
-
-
-# 🚀 <a href="https://daily-cashier.vercel.app/" target="_blank" rel="noopener">Try Daily Cashier Live</a> | 📂 <a href="https://github.com/micrometre/cashier" target="_blank" rel="noopener">View Source Code</a>
